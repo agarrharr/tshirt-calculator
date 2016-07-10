@@ -25,17 +25,15 @@ var tshirtCalcuator = (function() {
 
   var getPlacementCost = function() {
     return calc.placementPrices.map(function(currentValue) {
-      var quantity = currentValue.quantity;
       var firstCost = currentValue.firstCost[calc.placements[0] - 1];
       var secondCost = 0;
       if (calc.placements[1]) {
         secondCost = currentValue.secondCost[calc.placements[1] - 1];
       }
-      var price = quantity * (firstCost + secondCost + calc.shirtCost);
-      price = price / quantity;
+      var price = firstCost + secondCost + calc.shirtCost;
       price = Math.round(price * 100) / 100;
       return {
-        quantity: quantity,
+        quantity: currentValue.quantity,
         price: price
       };
     });
