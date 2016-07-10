@@ -35,7 +35,7 @@ describe('placements', function() {
   });
 });
 
-describe('getPlacementCost', function() {
+describe('getPrice', function() {
   it('should get the placement cost', function() {
     var prices = [
         {
@@ -62,6 +62,6 @@ describe('getPlacementCost', function() {
         quantity: 20,
         price: 9.53
       }];
-    expect(calc.getPlacementCost()).to.deep.equal(expected);
+    expect(calc.getPrice()).to.deep.equal(expected);
   });
 });

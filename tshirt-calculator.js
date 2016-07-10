@@ -18,7 +18,7 @@
     placements = _;
   }
 
-  exports.getPlacementCost = function() {
+  exports.getPrice = function() {
     return placementPrices.map(function(currentValue) {
       var firstCost = currentValue.firstCost[placements[0] - 1];
       var secondCost = 0;
