@@ -4,16 +4,15 @@ var calc = require('../tshirt-calculator');
 
 describe('placementPrices', function() {
   it('should set the placementPrices', function() {
-    expect(calc.placementPrices()).to.deep.equal([undefined, undefined]);
+    expect(calc.placementPrices()).to.deep.equal(undefined);
 
-    calc.placementPrices('first', 1);
+    calc.placementPrices(1);
+    expect(calc.placementPrices()).to.equal(1);
 
-    expect(calc.placementPrices('first')).to.equal(1);
-    expect(calc.placementPrices()).to.deep.equal([1, undefined]);
+    calc.placementPrices(2);
+    expect(calc.placementPrices()).to.equal(2);
 
-    calc.placementPrices('second', 2);
-
-    expect(calc.placementPrices('second')).to.equal(2);
+    calc.placementPrices([1, 2]);
     expect(calc.placementPrices()).to.deep.equal([1, 2]);
   });
 });
@@ -24,15 +23,6 @@ describe('shirtCost', function() {
 
     calc.shirtCost(2);
     expect(calc.shirtCost()).to.equal(2);
-  });
-});
-
-describe('quantity', function() {
-  it('should set the quantity', function() {
-    expect(calc.quantity()).to.equal(undefined);
-
-    calc.quantity(2);
-    expect(calc.quantity()).to.equal(2);
   });
 });
 
@@ -47,22 +37,26 @@ describe('placements', function() {
 
 describe('getPlacementCost', function() {
   it('should get the placement cost', function() {
-    var prices = [{
-          quantity: 10,
-          cost: [4.5, 5.5, 6.5, 7.5, 8, 8.5, 9]
-        },
-        {
-          quantity: 20,
-          cost: [4.3, 4.53, 5, 5.5, 6, 7.5, 7.8]
-        }
-      ];
-    calc.placementPrices('first', prices);
-    calc.placementPrices('second', []);
+    var prices = {
+      'first': [{
+            quantity: 10,
+            cost: [4.5, 5.5, 6.5, 7.5, 8, 8.5, 9]
+          },
+          {
+            quantity: 20,
+            cost: [4.3, 4.53, 5, 5.5, 6, 7.5, 7.8]
+          }
+        ]
+      };
+    calc.placementPrices(prices);
     calc.shirtCost(5);
-    calc.quantity(22);
     calc.placements([2]);
     // 110 shirt cost + 99.66 placements = 209.66 subtotal
 
-    expect(calc.getPlacementCost()).to.equal(209.66);
+    var expected = [{
+      quantitity: 12,
+      price: '5'
+    }];
+    expect(calc.getPlacementCost()).to.equal();
   });
 });
