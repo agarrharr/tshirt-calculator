@@ -37,26 +37,31 @@ describe('placements', function() {
 
 describe('getPlacementCost', function() {
   it('should get the placement cost', function() {
-    var prices = {
-      'first': [{
-            quantity: 10,
-            cost: [4.5, 5.5, 6.5, 7.5, 8, 8.5, 9]
-          },
-          {
-            quantity: 20,
-            cost: [4.3, 4.53, 5, 5.5, 6, 7.5, 7.8]
-          }
-        ]
-      };
+    var prices = [
+        {
+          quantity: 10,
+          firstCost: [4.5, 5.5, 6.5, 7.5, 8, 8.5, 9]
+        },
+        {
+          quantity: 20,
+          firstCost: [4.3, 4.53, 5, 5.5, 6, 7.5, 7.8]
+        }
+      ];
     calc.placementPrices(prices);
     calc.shirtCost(5);
     calc.placements([2]);
-    // 110 shirt cost + 99.66 placements = 209.66 subtotal
+    // quantity: 10
+    // 50 shirt cost + 55 placements = 105 / 10 = 10.5
+    // quantity: 20
+    // 100 shirt cost + 90.6 placements = 190.6 / 20 = 9.53
 
     var expected = [{
-      quantitity: 12,
-      price: '5'
-    }];
-    expect(calc.getPlacementCost()).to.equal();
+        quantity: 10,
+        price: 10.5
+      },{
+        quantity: 20,
+        price: 9.53
+      }];
+    expect(calc.getPlacementCost()).to.deep.equal(expected);
   });
 });

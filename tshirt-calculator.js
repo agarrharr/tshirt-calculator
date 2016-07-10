@@ -24,41 +24,21 @@ var tshirtCalcuator = (function() {
   }
 
   var getPlacementCost = function() {
-    // Get array of price brackets
-
-    // var totalShirtCost = calc.shirtCost * calc.quantity;
-    // var placementCost = 0;
-    // var pricingBracketForFirstPlacement = getPricingBracket(calc.firstPlacementPrices);
-    // var pricingBracketForSecondPlacement = getPricingBracket(calc.secondPlacementPrices);
-    // var prices;
-    // var pricingBracket;
-    // var colors;
-    // var total;
-
-    // for (var i = 0; i < calc.placements.length; i += 1) {
-    //   colors = calc.placements[i];
-    //   if (i === 0) {
-    //     prices = calc.firstPlacementPrices;
-    //     pricingBracket = pricingBracketForFirstPlacement;
-    //   } else {
-    //     prices = calc.secondPlacementPrices;
-    //     pricingBracket = pricingBracketForSecondPlacement;
-    //   }
-    //   for (var j = 0; j < prices.length; j += 1) {
-    //     if (prices[j].quantity === pricingBracket) {
-    //       placementCost += prices[j].cost[colors - 1] * calc.quantity;
-    //     }
-    //   }
-    // }
-    // total = totalShirtCost + placementCost;
-
-    // return Math.round(total * 100) / 100;
-  }
-
-  var getPricingBracket = function(prices) {
-    return prices.map(function(currentValue) {
-        return currentValue.quantity;
-      });
+    return calc.placementPrices.map(function(currentValue) {
+      var quantity = currentValue.quantity;
+      var firstCost = currentValue.firstCost[calc.placements[0] - 1];
+      var secondCost = 0;
+      if (calc.placements[1]) {
+        secondCost = currentValue.secondCost[calc.placements[1] - 1];
+      }
+      var price = quantity * (firstCost + secondCost + calc.shirtCost);
+      price = price / quantity;
+      price = Math.round(price * 100) / 100;
+      return {
+        quantity: quantity,
+        price: price
+      };
+    });
   }
 
   return {
