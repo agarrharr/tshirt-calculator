@@ -1,4 +1,4 @@
-var tshirtCalcuator = (function() {
+var tshirtCalculator = (function() {
   var calc = {
   };
 
@@ -47,4 +47,4 @@ var tshirtCalcuator = (function() {
   };
 }());
 
-module.exports = tshirtCalcuator;
+module.exports = tshirtCalculator;
