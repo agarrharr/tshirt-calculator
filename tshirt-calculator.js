@@ -1,36 +1,31 @@
-var tshirtCalculator = (function() {
-  var calc = {
+(function(exports) {
+  var placementPrices;
+  var shirtCost;
+  var placements;
+
+  exports.placementPrices = function(_) {
+    if (_ === undefined) { return placementPrices; }
+    placementPrices = _;
   };
 
-  var placementPrices = function(prices) {
-    if (prices === undefined) {
-      return calc.placementPrices;
-    }
-    calc.placementPrices = prices;
-  };
-
-  var shirtCost = function(cost) {
-    if (cost === undefined) {
-      return calc.shirtCost;
-    }
-    calc.shirtCost = cost;
+  exports.shirtCost = function(_) {
+    if (_ === undefined) { return shirtCost; }
+    shirtCost = _;
   }
 
-  var placements = function(cost) {
-    if (cost === undefined) {
-      return calc.placements;
-    }
-    calc.placements = cost;
+  exports.placements = function(_) {
+    if (_ === undefined) { return placements; }
+    placements = _;
   }
 
-  var getPlacementCost = function() {
-    return calc.placementPrices.map(function(currentValue) {
-      var firstCost = currentValue.firstCost[calc.placements[0] - 1];
+  exports.getPlacementCost = function() {
+    return placementPrices.map(function(currentValue) {
+      var firstCost = currentValue.firstCost[placements[0] - 1];
       var secondCost = 0;
-      if (calc.placements[1]) {
-        secondCost = currentValue.secondCost[calc.placements[1] - 1];
+      if (placements[1]) {
+        secondCost = currentValue.secondCost[placements[1] - 1];
       }
-      var price = firstCost + secondCost + calc.shirtCost;
+      var price = firstCost + secondCost + shirtCost;
       price = Math.round(price * 100) / 100;
       return {
         quantity: currentValue.quantity,
@@ -38,13 +33,4 @@ var tshirtCalculator = (function() {
       };
     });
   }
-
-  return {
-    placementPrices: placementPrices,
-    shirtCost: shirtCost,
-    placements: placements,
-    getPlacementCost: getPlacementCost
-  };
-}());
-
-module.exports = tshirtCalculator;
+}(typeof exports === 'undefined'? this['tshirtCalculator']={}: exports));
