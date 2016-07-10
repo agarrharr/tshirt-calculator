@@ -29,13 +29,6 @@ var tshirtCalcuator = (function() {
     calc.shirtCost = cost;
   }
 
-  var salesTax = function(cost) {
-    if (cost === undefined) {
-      return calc.salesTax;
-    }
-    calc.salesTax = cost;
-  }
-
   var quantity = function(cost) {
     if (cost === undefined) {
       return calc.quantity;
@@ -75,7 +68,7 @@ var tshirtCalcuator = (function() {
         }
       }
     }
-    total = (totalShirtCost + placementCost) * (1 + calc.salesTax / 10);
+    total = totalShirtCost + placementCost;
 
     return Math.round(total * 100) / 100;
   }
@@ -93,7 +86,6 @@ var tshirtCalcuator = (function() {
   return {
     placementPrices: placementPrices,
     shirtCost: shirtCost,
-    salesTax: salesTax,
     quantity: quantity,
     placements: placements,
     getPlacementCost: getPlacementCost

@@ -27,15 +27,6 @@ describe('shirtCost', function() {
   });
 });
 
-describe('salesTax', function() {
-  it('should set the salesTax', function() {
-    expect(calc.salesTax()).to.equal(undefined);
-
-    calc.salesTax(2);
-    expect(calc.salesTax()).to.equal(2);
-  });
-});
-
 describe('quantity', function() {
   it('should set the quantity', function() {
     expect(calc.quantity()).to.equal(undefined);
@@ -68,12 +59,10 @@ describe('getPlacementCost', function() {
     calc.placementPrices('first', prices);
     calc.placementPrices('second', []);
     calc.shirtCost(5);
-    calc.salesTax(5.5);
     calc.quantity(22);
     calc.placements([2]);
     // 110 shirt cost + 99.66 placements = 209.66 subtotal
-    // 209.66 + 115.313 sales tax = 324.973
 
-    expect(calc.getPlacementCost()).to.equal(324.97);
+    expect(calc.getPlacementCost()).to.equal(209.66);
   });
 });
