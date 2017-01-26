@@ -5,3 +5,9 @@ placementPrices()
 placements([2, 3]) // array of number of colors for each placement
 
 getPrice()
+
+## Tests
+
+```
+mocha tests/test.js
+```

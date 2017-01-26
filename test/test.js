@@ -65,3 +65,35 @@ describe('getPrice', function() {
     expect(calc.getPrice()).to.deep.equal(expected);
   });
 });
+
+describe('getPrice', function() {
+  it('returns null instead of NaN', function() {
+    var prices = [
+        {
+          quantity: 10,
+          firstCost: [4.5, 5.5, 6.5, 7.5, 8, 8.5, 9],
+          secondCost: [4.5, 5.5],
+        },
+        {
+          quantity: 20,
+          firstCost: [4.3, 4.53, 5, 5.5, 6, 7.5, 7.8]
+        }
+      ];
+    calc.placementPrices(prices);
+    calc.shirtCost(5);
+    calc.placements([2, 3]);
+    // quantity: 10
+    // 50 shirt cost + 55 placements = 105 / 10 = 10.5
+    // quantity: 20
+    // 100 shirt cost + 90.6 placements = 190.6 / 20 = 9.53
+
+    var expected = [{
+        quantity: 10,
+        price: null
+      },{
+        quantity: 20,
+        price: null
+      }];
+    expect(calc.getPrice()).to.deep.equal(expected);
+  });
+});
